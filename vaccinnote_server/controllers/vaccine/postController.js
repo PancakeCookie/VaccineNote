@@ -99,6 +99,40 @@ const postController = {
       });
     }
   },
+
+  getAllDate: async (req, res) => {
+    try {
+      const result = await post.find().populate("writer", "nickName email");
+      // populate로 writer를 찾아서 치환, 뒤에 받고싶은 필드값
+      res.json({
+        message: "조회 성공",
+        data: result,
+      });
+    } catch (error) {
+      console.log(error);
+      res.status(400).json({
+        message: "조회 실패",
+        error: error,
+      });
+    }
+  },
+
+  detailPost: async (req, res) => {
+    const { id } = req.params;
+
+    try {
+      const result = await post.findOne({ _id: id });
+      res.json({
+        message: "상세조회 성공",
+        data: result,
+      });
+    } catch (error) {
+      res.status(500).json({
+        message: "상세조회 실패",
+        error: error,
+      });
+    }
+  },
 };
 
 module.exports = postController;

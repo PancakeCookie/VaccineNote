@@ -1,5 +1,6 @@
 const user = require("../../models/user");
 const jwtModule = require("../../modules/jwtModule");
+const authModule = require("../../modules/authModule");
 
 const authController = {
   signUp: async (req, res) => {
@@ -58,6 +59,90 @@ const authController = {
       return res.status(500).json({
         message: "DB 에러",
         error: error,
+      });
+    }
+  },
+
+  deleteUser: async (req, res) => {
+    const userInfo = req.userInfo;
+
+    // 일치하는 회원인지 아닌지 확인
+    const ownResult = await user.checkAuth({
+      logginId: userInfo._id,
+    });
+    const id = userInfo._id;
+
+    if (ownResult === -1) {
+      return res.status(409).json({
+        message: "계정 권한이 없습니다",
+      });
+    } else if (ownResult === -2) {
+      return res.status(500).json({
+        message: "DB 서버 에러",
+      });
+    }
+    try {
+      console.log(ownResult._id);
+      await user.findByIdAndDelete(id);
+      res.status(200).json({
+        message: "삭제 성공",
+      });
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({
+        message: "DB 서버 에러",
+      });
+    }
+  },
+
+  updateUser: async (req, res) => {
+    const userInfo = req.userInfo;
+    const { type, age, degree } = req.body;
+    const id = userInfo._id;
+
+    const ownResult = await user.checkAuth({
+      logginId: userInfo._id,
+    });
+    console.log(ownResult);
+    if (ownResult === -1) {
+      return res.status(409).json({ message: "접근 권한이 없습니다." });
+    } else if (ownResult === -2) {
+      return res.status(500).json({
+        message: "DB 서버 에러",
+      });
+    }
+    // 여기서 다 채웠는지 결과값 체크
+    try {
+      const result = await user.findByIdAndUpdate(
+        id,
+        {
+          type,
+          age,
+          degree,
+          verified: true,
+        },
+        { new: true } // 업데이트 하고 난 후의 결과값 반환
+      );
+      console.log(result);
+
+      const payload = {
+        email: result.email,
+        verified: result.verified,
+      };
+
+      const token = jwtModule.create(payload);
+      console.log(token);
+
+      return res.status(200).json({
+        message: "수정 완료",
+        data: result,
+        accessToken: token,
+      });
+    } catch (error) {
+      console.log(error);
+      return res.status(500).json({
+        message: "DB 서버 에러",
+        error,
       });
     }
   },

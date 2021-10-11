@@ -4,4 +4,7 @@ var postController = require("../../../controllers/vaccine/postController");
 const authModule = require("../../../modules/authModule");
 
 router.post("/upload", authModule.loggedIn, postController.uploadPost);
+router.delete("/delete/:id", authModule.loggedIn, postController.deletePost);
+router.put("/update/:id", authModule.loggedIn, postController.updatePost);
+
 module.exports = router;

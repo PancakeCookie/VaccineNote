@@ -13,12 +13,12 @@ const authModule = {
 
     const decoded = jwtModule.verify(token);
     // 여기서 verification 체크
-    console.log(decoded);
-    if (decoded.verified == false) {
-      return res.status(409).json({
-        message: "추가 정보를 입력해주세요",
-      });
-    }
+    // console.log(decoded);
+    // if (decoded.verified == false) {
+    //   return res.status(409).json({
+    //     message: "추가 정보를 입력해주세요",
+    //   });
+    // }
 
     if (decoded === -1) {
       return res.status(401).json({

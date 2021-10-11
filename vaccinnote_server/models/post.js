@@ -18,4 +18,18 @@ const postSchema = new Schema({
   ],
 });
 
+postSchema.statics.checkAuth = async function (params) {
+  const { postId, writerId } = params;
+  try {
+    const ownResult = await this.findOne({ _id: postId });
+    const ownId = ownResult.writer;
+    if (ownId.toString() !== writerId.toString()) {
+      return -1;
+    }
+    return 1;
+  } catch (error) {
+    return -2;
+  }
+};
+
 module.exports = mongoose.model("post", postSchema);

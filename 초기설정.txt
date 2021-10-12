@@ -2,9 +2,12 @@ Server
 Express 깔고
 Express 폴더 만들고
 npm install mongoose cors elasticsearch multer multer-s3 jsonwebtoken aws-sdk
-폴더
+
+추가 폴더
 config, modules, models(db스키마 정의), controllers
 
 React
 npx create-react-app 소문자 프로젝트명
-yarn add styled-components axios react-router-dom styled-reset react-icons quill react-loading dayjs react-redux
+yarn add styled-components axios react-router-dom styled-reset 
+         react-icons quill react-loading dayjs react-redux
+         react-toasts

@@ -9,13 +9,13 @@ const postSchema = new Schema({
   publishedDate: { type: Date, default: new Date() },
   updateDate: { type: Date, default: null },
   writer: { type: mongoose.Schema.Types.ObjectId, ref: "user" },
-  comments: [
-    {
-      commentWriter: { type: mongoose.Schema.Types.ObjectId, ref: "user" },
-      commentContent: { type: String, default: null, required: true },
-      commentDate: { type: Date, default: new Date() },
-    },
-  ],
+  // comments: [
+  //   {
+  //     commentWriter: { type: mongoose.Schema.Types.ObjectId, ref: "user" },
+  //     commentContent: { type: String, default: null, required: true },
+  //     commentDate: { type: Date, default: new Date() },
+  //   },
+  // ],
 });
 
 postSchema.statics.checkAuth = async function (params) {

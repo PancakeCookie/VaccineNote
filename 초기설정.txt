@@ -7,4 +7,4 @@ config, modules, models(db스키마 정의), controllers
 
 React
 npx create-react-app 소문자 프로젝트명
-yarn add styled-components axios react-router-dom styled-reset react-icons quill react-loading dayjs
+yarn add styled-components axios react-router-dom styled-reset react-icons quill react-loading dayjs react-redux

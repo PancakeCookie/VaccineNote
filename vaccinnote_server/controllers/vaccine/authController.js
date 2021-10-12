@@ -98,6 +98,8 @@ const authController = {
   updateUser: async (req, res) => {
     const userInfo = req.userInfo;
     const { type, age, degree } = req.body;
+    // const file = req.file;
+    // console.log(file);
     const id = userInfo._id;
 
     const ownResult = await user.checkAuth({
@@ -137,6 +139,22 @@ const authController = {
         message: "수정 완료",
         data: result,
         accessToken: token,
+      });
+    } catch (error) {
+      console.log(error);
+      return res.status(500).json({
+        message: "DB 서버 에러",
+        error,
+      });
+    }
+  },
+
+  getProfile: (req, res) => {
+    const userInfo = req.userInfo;
+    try {
+      return res.status(200).json({
+        message: " 완료",
+        data: userInfo,
       });
     } catch (error) {
       console.log(error);

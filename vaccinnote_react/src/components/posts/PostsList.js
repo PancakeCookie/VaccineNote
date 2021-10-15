@@ -6,6 +6,8 @@ import palette from "../../libs/styles/palette";
 import { BsGenderMale, BsGenderFemale } from "react-icons/bs";
 import { useHistory } from "react-router-dom";
 import Comment from "../common/comment/Comment";
+import kdca from "../../assets/global/kdca.png";
+import coronamap from "../../assets/global/coronamap.png";
 
 const PostsListBlock = styled(Responsive)`
   margin-top: 3rem;
@@ -131,6 +133,21 @@ const PostTagsItem = styled.div`
   }
 `;
 
+const LinkBox = styled.div`
+  position: fixed;
+  top: 10rem;
+  left: 50px;
+`;
+
+const LinkImg = styled.img`
+  cursor: pointer;
+  box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.25);
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+  border-radius: 3px;
+`;
+
 function PostItem({ post, onClickPost }) {
   return (
     <PostItemBlock onClick={() => onClickPost(post._id)}>
@@ -155,19 +172,20 @@ function PostItem({ post, onClickPost }) {
             <span className="profile">{post.writer.age}</span>
           </ProfileInfoWrap>
           {/* 시간 남으면 1분전, 2시간전... 등 같이 만들어보기 */}
-          <PostItemDate>2021-10-14 / 13:33</PostItemDate>
+          <PostItemDate>{post.publishedDate}</PostItemDate>
         </PostItemInfoWrap>
       </ProfileWrap>
       <PostContentWrap>
-        <PostCategory>후기</PostCategory>
+        <PostCategory>{post.category}</PostCategory>
         <PostTitle>{post.title}</PostTitle>
         <PostContent>
           {post.content.replace("<p>", "").replace("</p>", "")}
         </PostContent>
         <PostTags>
-          <PostTagsItem>{post.tags[0]}</PostTagsItem>
-          <PostTagsItem>{post.tags[1]}</PostTagsItem>
-          <PostTagsItem>{post.tags[2]}</PostTagsItem>
+          {post &&
+            post.tags.map((tag) => {
+              return <PostTagsItem>#{tag}</PostTagsItem>;
+            })}
         </PostTags>
       </PostContentWrap>
     </PostItemBlock>
@@ -177,6 +195,15 @@ function PostItem({ post, onClickPost }) {
 function PostsList({ posts, onClickPost }) {
   return (
     <PostsListBlock>
+      <LinkBox>
+        <a href="https://ncvr2.kdca.go.kr/" target="_blank">
+          <LinkImg src={kdca} className="LinkImg" />
+        </a>
+        <a href="https://coronamap.site/" target="_blank">
+          <LinkImg src={coronamap} className="LinkImg" />
+        </a>
+      </LinkBox>
+
       <PostsListContainer>
         {posts &&
           posts.map((post, index) => {

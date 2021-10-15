@@ -12,8 +12,20 @@ const ResponsiveWrapper = styled.div`
   @media (max-width: 1024px) {
     width: 768px;
   }
+  @media (max-width: 950px) {
+    width: 75%;
+    .LinkImg {
+      display: none;
+    }
+    .VaccineStatBox {
+      display: none;
+    }
+    .Spin {
+      display: none;
+    }
+  }
   @media (max-width: 768px) {
-    width: 100%;
+    width: 75%;
     .MainLogo {
       display: none;
     }

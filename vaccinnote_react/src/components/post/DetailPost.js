@@ -20,9 +20,10 @@ const DetailContainer = styled.div`
 const DetailPostBlock = styled.div`
   padding: 1rem 1rem;
   max-width: 50rem;
-
+  width: 50rem;
   box-sizing: border-box;
   position: static;
+  box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.25);
   @media (max-width: 768px) {
     width: 100%;
   }
@@ -123,7 +124,7 @@ const PostTagsItem = styled.div`
   font-size: 1.2rem;
   color: grey;
   & + & {
-    margin-left: 0.1rem;
+    margin-left: 0.3rem;
   }
 `;
 
@@ -157,19 +158,20 @@ function DetailPost({ data }) {
                     <span className="profile">{data.writer.age}세</span>
                   </ProfileInfoWrap>
                   {/* 시간 남으면 1분전, 2시간전... 등 같이 만들어보기 */}
-                  <PostItemDate>2021-10-14 / 13:33</PostItemDate>
+                  <PostItemDate>{data.publishedDate}</PostItemDate>
                 </PostItemInfoWrap>
               </ProfileWrap>
               <PostContentWrap>
-                <PostCategory>후기</PostCategory>
+                <PostCategory>{data.category}</PostCategory>
                 <PostTitle>{data.title}</PostTitle>
                 <PostContent>
                   {data.content.replace("<p>", "").replace("</p>", "")}
                 </PostContent>
                 <PostTags>
-                  <PostTagsItem>#모더나</PostTagsItem>
-                  <PostTagsItem>#부작용</PostTagsItem>
-                  <PostTagsItem>#아픔</PostTagsItem>
+                  {data &&
+                    data.tags.map((tag) => {
+                      return <PostTagsItem>#{tag}</PostTagsItem>;
+                    })}
                 </PostTags>
               </PostContentWrap>
               <Comment />

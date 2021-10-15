@@ -20,6 +20,7 @@ import {
   ToastsContainerPosition,
 } from "react-toasts";
 import EditProfilePage from "./pages/EditProfilePage";
+import VaccineStatContainer from "./containers/publickapi/VaccineStatContainer";
 
 function App() {
   // const dispatch = useDispatch();
@@ -52,13 +53,13 @@ function App() {
     <>
       <GlobalStyles />
       <NavbarContainer />
+
       <Route component={HomePage} path={["/@:username", "/"]} exact />
       <Route component={SignInPage} exact path="/signin" />
       <Route component={SignUpPage} exact path="/signup" />
       <Route component={EditProfilePage} exact path="/edit/profile" />
       <Route component={WritePage} exact path="/write" />
       <Route component={DetailPostPage} exact path="/post/:postId" />
-
       {/* <Route component={RegisterPage} path="/register" /> */}
       {/* <Route component={WritePage} path="/write" /> */}
       {/* <Route component={PostPage} path="/@:username/:postId" /> */}

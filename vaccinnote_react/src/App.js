@@ -11,13 +11,15 @@ import { getProfile } from "./modules/user";
 import AuthProvider from "./context/providers/AuthProvider";
 import { useContext } from "react";
 import AuthContext from "./context/AuthContext";
-import AddProfilePage from "./pages/AddProfilePage";
+import AddProfilePage from "./pages/EditProfilePage";
+import DetailPostPage from "./pages/DetailPostPage";
+import WritePage from "./pages/WritePage";
 import {
   ToastsContainer,
   ToastsStore,
   ToastsContainerPosition,
 } from "react-toasts";
-
+import EditProfilePage from "./pages/EditProfilePage";
 
 function App() {
   // const dispatch = useDispatch();
@@ -27,12 +29,10 @@ function App() {
   const { authInfo, setAuthInfo } = useContext(AuthContext);
 
   useEffect(() => {
-    ToastsStore.success("환영합니다");
-
-
     const token = localStorage.getItem("accessToken")
       ? localStorage.getItem("accessToken")
       : null;
+
     console.log(token);
     async function getAccount() {
       if (token !== null) {
@@ -55,7 +55,9 @@ function App() {
       <Route component={HomePage} path={["/@:username", "/"]} exact />
       <Route component={SignInPage} exact path="/signin" />
       <Route component={SignUpPage} exact path="/signup" />
-      <Route component={AddProfilePage} exact path="/addprofile" />
+      <Route component={EditProfilePage} exact path="/edit/profile" />
+      <Route component={WritePage} exact path="/write" />
+      <Route component={DetailPostPage} exact path="/post/:postId" />
 
       {/* <Route component={RegisterPage} path="/register" /> */}
       {/* <Route component={WritePage} path="/write" /> */}

@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const postSchema = new Schema({
   title: { type: String, required: true },
   content: { type: String, required: true },
-  category: { type: Number, required: true, default: 0 },
+  category: { type: String, required: true, default: null },
   tags: [{ type: String, default: null }], // 복수개는 배열로
   publishedDate: { type: Date, default: new Date() },
   updateDate: { type: Date, default: null },

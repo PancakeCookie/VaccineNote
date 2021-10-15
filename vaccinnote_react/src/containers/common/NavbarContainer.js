@@ -1,13 +1,13 @@
 import React from "react";
 import { useState } from "react";
 import { useContext } from "react";
-import { useHistory } from "react-router";
 import NavbarComponent from "../../components/common/NavbarComponent";
 import AuthContext from "../../context/AuthContext";
+import client from "../../libs/api/_client";
+import { useHistory } from "react-router-dom";
 
-function NavbarContainer({ setIsLoggined }) {
+function NavbarContainer() {
   const history = useHistory();
-
   const { authInfo, setAuthInfo } = useContext(AuthContext);
   const [visible, setVisible] = useState(false);
 
@@ -15,24 +15,28 @@ function NavbarContainer({ setIsLoggined }) {
     setVisible(!visible);
   };
 
-  const onClickSignout = () => {
+  const onClickEditProfile = () => {
+    history.push("/edit/profile");
+    setVisible(false);
+  };
+
+  const onClickLogout = () => {
     localStorage.removeItem("accessToken");
-    setAuthInfo({ isLoggedIn: false });
+    client.defaults.headers.common["Authorization"] = ``;
+    setAuthInfo({
+      ...authInfo,
+      isLoggedIn: false,
+    });
     history.push("/");
+    setVisible(false);
   };
-
-  const onClickHome = () => {
-    history.push("/");
-  };
-
   return (
     <NavbarComponent
       onClickProfileImg={onClickProfileImg}
       visible={visible}
       authInfo={authInfo}
-      onClickSignout={onClickSignout}
-      onClickHome={onClickHome}
-      onClickSignout={onClickSignout}
+      onClickLogout={onClickLogout}
+      onClickEditProfile={onClickEditProfile}
     />
   );
 }

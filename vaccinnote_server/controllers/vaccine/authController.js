@@ -97,7 +97,13 @@ const authController = {
 
   updateUser: async (req, res) => {
     const userInfo = req.userInfo;
-    const { type, age, degree } = req.body;
+    const { type, age, degree, inoDate, gender, profileImage } = req.body;
+
+    let verified = false; // verified 변할 수 있으니 let으로
+    if (age !== null && degree !== null && inoDate !== null && type !== "") {
+      verified = true;
+    }
+
     // const file = req.file;
     // console.log(file);
     const id = userInfo._id;
@@ -113,7 +119,7 @@ const authController = {
         message: "DB 서버 에러",
       });
     }
-    // 여기서 다 채웠는지 결과값 체크
+
     try {
       const result = await user.findByIdAndUpdate(
         id,
@@ -121,7 +127,10 @@ const authController = {
           type,
           age,
           degree,
-          verified: true,
+          gender,
+          inoDate,
+          profileImage,
+          verified,
         },
         { new: true } // 업데이트 하고 난 후의 결과값 반환
       );

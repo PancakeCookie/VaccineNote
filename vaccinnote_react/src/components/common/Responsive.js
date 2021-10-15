@@ -6,12 +6,23 @@ const ResponsiveWrapper = styled.div`
   padding-right: 1rem;
   width: 1024px;
   margin: 0 auto;
+  box-sizing: border-box;
+  position: relative;
 
   @media (max-width: 1024px) {
     width: 768px;
   }
   @media (max-width: 768px) {
     width: 100%;
+    .MainLogo {
+      display: none;
+    }
+    .MiniLogo {
+      height: 50px;
+      padding-top: 20px;
+      padding-left: 10px;
+      display: block;
+    }
   }
 `;
 

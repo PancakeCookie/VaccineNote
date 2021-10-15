@@ -4,18 +4,20 @@ import ButtonComponent from "../common/ButtonComponent";
 import palette from "../../libs/styles/palette";
 import { BsPlusLg } from "react-icons/bs";
 import { useHistory } from "react-router-dom";
+import { useContext } from "react";
+import AuthContext from "../../context/AuthContext";
 
 const StyledButton = styled(ButtonComponent)`
   width: 4rem;
   height: 4rem;
   border-radius: 50%;
-  background-color: ${palette.cyan[5]};
+  background-color: ${palette.blue[3]};
   position: fixed;
   bottom: 2rem;
   right: 2rem;
 
   &:hover {
-    background-color: ${palette.cyan[4]};
+    background-color: ${palette.blue[2]};
   }
 `;
 
@@ -26,11 +28,18 @@ const StyledIcon = styled(BsPlusLg)`
 
 function WriteButton() {
   const history = useHistory();
-  console.log(history);
+  const { authInfo } = useContext(AuthContext);
+
   return (
-    <StyledButton>
-      <StyledIcon onClick={() => history.push("/write")} />
-    </StyledButton>
+    <>
+      {authInfo.isLoggedIn ? (
+        <StyledButton onClick={() => history.push("/write")}>
+          <StyledIcon />
+        </StyledButton>
+      ) : (
+        <></>
+      )}
+    </>
   );
 }
 

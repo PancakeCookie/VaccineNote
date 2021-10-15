@@ -14,9 +14,9 @@ const buttonStyle = css`
   outline: none;
   cursor: pointer;
 
-  background: ${palette.gray[8]};
+  background: ${palette.gray[6]};
   &:hover {
-    background: ${palette.gray[6]};
+    background: ${palette.gray[4]};
   }
   &:disabled {
     background: ${palette.gray[3]};
@@ -26,17 +26,17 @@ const buttonStyle = css`
   ${(props) =>
     props.fullWidth &&
     css`
-      padding-top: 0.75rem;
-      padding-bottom: 0.75rem;
+      padding-top: 1rem;
+      padding-bottom: 1rem;
       width: 100%;
-      font-size: 1.125rem;
+      font-size: 1.8rem;
     `}
   ${(props) =>
     props.cyan &&
     css`
-      background: ${palette.cyan[5]};
+      background: ${palette.blue[3]};
       &:hover {
-        background: ${palette.cyan[4]};
+        background: ${palette.blue[2]};
       }
     `}
 `;

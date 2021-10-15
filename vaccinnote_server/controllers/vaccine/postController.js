@@ -9,8 +9,8 @@ const postController = {
     const postModel = new post({
       title,
       content,
-      category,
       tags,
+      category,
       writer: userInfo._id,
     });
 
@@ -102,7 +102,9 @@ const postController = {
 
   getAllDate: async (req, res) => {
     try {
-      const result = await post.find().populate("writer", "nickName email");
+      const result = await post
+        .find()
+        .populate("writer", "nickName email type age degree gender");
       // populate로 writer를 찾아서 치환, 뒤에 받고싶은 필드값
       res.json({
         message: "조회 성공",
@@ -121,7 +123,9 @@ const postController = {
     const { id } = req.params;
 
     try {
-      const result = await post.findOne({ _id: id });
+      const result = await post
+        .findOne({ _id: id })
+        .populate("writer", "nickName email type age degree gender");
       res.json({
         message: "상세조회 성공",
         data: result,

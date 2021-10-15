@@ -3,6 +3,7 @@ import { useState } from "react";
 import AuthForm from "../../components/auth/AuthForm";
 import client from "../../libs/api/_client";
 import { useHistory } from "react-router-dom";
+import { ToastsStore } from "react-toasts";
 
 function SignUpForm() {
   const history = useHistory();
@@ -27,6 +28,7 @@ function SignUpForm() {
           password: form.password,
         });
         if (response.status === 200) {
+          ToastsStore.success("회원가입 완료");
           history.push("/");
         }
       } catch (error) {

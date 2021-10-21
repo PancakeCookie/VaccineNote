@@ -150,69 +150,81 @@ const LinkImg = styled.img`
 
 function PostItem({ post, onClickPost }) {
   return (
-    <PostItemBlock onClick={() => onClickPost(post._id)}>
-      <ProfileWrap>
-        <ProfileImageWrap>
-          <ProfileImage src={DefaultAvatar} />
-        </ProfileImageWrap>
-        <PostItemInfoWrap>
-          <ProfileInfoWrap>
-            <span className="nickName">
-              {post.writer.nickName}
-              {post.writer.gender === "male" ? (
-                <StyledMaleIcon />
-              ) : (
-                <StyledFemaleIcon />
-              )}
-            </span>
-            <span className="profile">{post.writer.type}</span>
-            <span className="dot">·</span>
-            <span className="profile">{post.writer.degree}차</span>
-            <span className="dot">·</span>
-            <span className="profile">{post.writer.age}</span>
-          </ProfileInfoWrap>
-          {/* 시간 남으면 1분전, 2시간전... 등 같이 만들어보기 */}
-          <PostItemDate>{post.publishedDate}</PostItemDate>
-        </PostItemInfoWrap>
-      </ProfileWrap>
-      <PostContentWrap>
-        <PostCategory>{post.category}</PostCategory>
-        <PostTitle>{post.title}</PostTitle>
-        <PostContent>
-          {post.content.replace("<p>", "").replace("</p>", "")}
-        </PostContent>
-        <PostTags>
-          {post &&
-            post.tags.map((tag) => {
-              return <PostTagsItem>#{tag}</PostTagsItem>;
-            })}
-        </PostTags>
-      </PostContentWrap>
-    </PostItemBlock>
+    <>
+      {post && (
+        <PostItemBlock onClick={() => onClickPost(post._id)}>
+          <ProfileWrap>
+            <ProfileImageWrap>
+              <ProfileImage src={DefaultAvatar} />
+            </ProfileImageWrap>
+            <PostItemInfoWrap>
+              <ProfileInfoWrap>
+                <span className="nickName">
+                  {post.writer.nickName}
+                  {post.writer.gender === "male" ? (
+                    <StyledMaleIcon />
+                  ) : (
+                    <StyledFemaleIcon />
+                  )}
+                </span>
+                <span className="profile">{post.writer.type}</span>
+                <span className="dot">·</span>
+                <span className="profile">{post.writer.degree}차</span>
+                <span className="dot">·</span>
+                <span className="profile">{post.writer.age}</span>
+              </ProfileInfoWrap>
+              {/* 시간 남으면 1분전, 2시간전... 등 같이 만들어보기 */}
+              <PostItemDate>{post.publishedDate}</PostItemDate>
+            </PostItemInfoWrap>
+          </ProfileWrap>
+          <PostContentWrap>
+            <PostCategory>{post.category}</PostCategory>
+            <PostTitle>{post.title}</PostTitle>
+            <PostContent>
+              {post.content.replace("<p>", "").replace("</p>", "")}
+            </PostContent>
+            <PostTags>
+              {post &&
+                post.tags.map((tag) => {
+                  return <PostTagsItem>#{tag}</PostTagsItem>;
+                })}
+            </PostTags>
+          </PostContentWrap>
+        </PostItemBlock>
+      )}
+    </>
   );
 }
 
 function PostsList({ posts, onClickPost }) {
   return (
-    <PostsListBlock>
-      <LinkBox>
-        <a href="https://ncvr2.kdca.go.kr/" target="_blank">
-          <LinkImg src={kdca} className="LinkImg" />
-        </a>
-        <a href="https://coronamap.site/" target="_blank">
-          <LinkImg src={coronamap} className="LinkImg" />
-        </a>
-      </LinkBox>
+    <>
+      {posts && (
+        <PostsListBlock>
+          <LinkBox>
+            <a href="https://ncvr2.kdca.go.kr/" target="_blank">
+              <LinkImg src={kdca} className="LinkImg" />
+            </a>
+            <a href="https://coronamap.site/" target="_blank">
+              <LinkImg src={coronamap} className="LinkImg" />
+            </a>
+          </LinkBox>
 
-      <PostsListContainer>
-        {posts &&
-          posts.map((post, index) => {
-            return (
-              <PostItem key={posts._id} onClickPost={onClickPost} post={post} />
-            );
-          })}
-      </PostsListContainer>
-    </PostsListBlock>
+          <PostsListContainer>
+            {posts &&
+              posts.map((post, index) => {
+                return (
+                  <PostItem
+                    key={posts._id}
+                    onClickPost={onClickPost}
+                    post={post}
+                  />
+                );
+              })}
+          </PostsListContainer>
+        </PostsListBlock>
+      )}
+    </>
   );
 }
 
